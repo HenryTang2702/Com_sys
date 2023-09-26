@@ -28,28 +28,28 @@ M=0
 
 (LOOP)
    // Check if the counter (R3) is equal to the second number
-   @R3
-   D=M
-   @R2
-   D=D-M
-   @END
-   D;JEQ
+@R3
+D=M
+@R2
+D=D-M
+@END
+D;JEQ
 
-   // Add the first number (R1) to the result (R0)
-   @R0
-   D=M
-   @R1
-   D=D+M
-   @R0
-   M=D
+// Add the first number (R1) to the result (R0)
+@R0
+D=M
+@R1
+D=D+M
+@R0
+M=D
 
    // Increment the counter (R3) by 1
-   @R3
-   M=M+1
+@R3
+M=M+1
 
-   // Repeat the loop
-   @LOOP
-   0;JMP
+// Repeat the loop
+@LOOP
+0;JMP
 
 (END)
 // End of program
