@@ -3,33 +3,25 @@
 
 // Put your code here.
 
-// Store input -> R0
+// load R1 into D
 @R1
 D=M
 
+// check if D is negative
+@NEG
+D;JLT
+
+// if D is positive or zero, set R0 to D
 @R0
 M=D
-
-// If value is negative, negate it
-@R0
-D=M
-
-@NEGATIVE
-M=D
-
-@R0
-D=M
-
-@END
-D;JGE
-
-@R0
-M=-M
-@END
-// End of program
-(NEGATIVE)
-@END
-
-(END)
 @END
 0;JMP
+
+// if D is negative, negate it and set R0 to the result
+(NEG)
+D=-D
+@R0
+M=D
+
+(END)
+// End of program
