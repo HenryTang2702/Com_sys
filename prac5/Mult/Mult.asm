@@ -8,40 +8,50 @@
 
 // Put your code here.
 
-@2	//GO TO FINAL ANSWER BOX
-M=0	//ZERO ANS BOX
+// Mult.asm - Multiply two numbers and store the result in R0
 
-@0
+// Initialize R0 to 0
+@R0
+M=0
+
+// Load the first number into D (R1)
+@R1
 D=M
-@END
-D;JEQ	//IF ONE PRODUCT IS ZERO
 
-@1
-D=M
-@END
-D;JEQ	//IF ONE PRODUCT IS ZERO
+// Load the second number into R2
+@R2
+M=D
 
-@0	//NOT NECESSARY
-D=M	//
-@3	//
-M=D	//ONLY TO KEEP THE NUMBERS BEING MUTLIPLED
-
+// Initialize a counter (R3) to the second number
+@R3
+M=0
 
 (LOOP)
-@1	//GET 2ND NUM
-D=M	//D HAS 2ND NUM
+   // Check if the counter (R3) is equal to the second number
+   @R3
+   D=M
+   @R2
+   D=D-M
+   @END
+   D;JEQ
 
-@2	//GO TO FINAL ANSWER BOX
-M=D+M	//RAM[2] NOW HAS 2ND NUMBER + ITS PREVIOUS VALUE
+   // Add the first number (R1) to the result (R0)
+   @R0
+   D=M
+   @R1
+   D=D+M
+   @R0
+   M=D
 
-@3	//GET 1ST NUM
-M=M-1	//1ST NUM-1
+   // Increment the counter (R3) by 1
+   @R3
+   M=M+1
 
-D=M	//IDK WHY D NEEDS TO =M?
-@LOOP	//WHERE TO JUMP TO
-D;JGT	//JUMP		    (WHY CANT THIS BE M;JGT?)
-
+   // Repeat the loop
+   @LOOP
+   0;JMP
 
 (END)
+// End of program
 @END
-0;JMP	//FOREVER LOOP
+0;JMP
