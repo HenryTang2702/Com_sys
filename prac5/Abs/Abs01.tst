@@ -1,17 +1,18 @@
+// Sample Test file for Abs.asm
+// Follows the Test Scripting Language format described in 
+// Appendix B of the book "The Elements of Computing Systems"
+
 load Abs.asm,
-output-file Abs01.out,
-compare-to Abs01.cmp,
+output-file Abs00.out,
+compare-to Abs00.cmp,
+output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2;
 
-set RAM[1] -3;   // Set R1 to a negative value
-
-// Run the program
-output;
-
-// Check the result in R0 (should be 3, the absolute value of -3)
-compare RAM[0] 3,
-
-// Restore arguments in case program used them
-set RAM[1] -3,
-set RAM[0] 0,
-
+set PC 0,
+set RAM[0] 0,  // Set R0
+set RAM[1] 3;  // Set R1
+repeat 100 {
+  ticktock;    // Run for 100 clock cycles
+}
+set RAM[1] 3,  // Restore arguments in case program used them
 output;        // Output to file
+
