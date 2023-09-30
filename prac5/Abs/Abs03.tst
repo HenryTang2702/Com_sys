@@ -1,6 +1,6 @@
 load Abs.asm,
-output-file Abs01.out,
-compare-to Abs01.cmp,
+output-file Abs03.out,
+compare-to Abs03.cmp,
 
 set RAM[0] 0,   // Set R0
 set RAM[1] -32765;   // Set R1 to 0
