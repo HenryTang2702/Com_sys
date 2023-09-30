@@ -4,14 +4,14 @@
 // Put your code here.
 
 @R1
-    D=M-1
-    @R2
-    M=M+D
+D=M-1
+@R2
+M=M+D
 
-    @32767
-    D=A
-    @R0
-    M=D
+@32767
+D=A
+@R0
+M=D
 
 (LOOP)
 (CHECK_TERMINATE)
@@ -46,7 +46,7 @@
 (R0_NEG)
     
 (R0_POS)
-    // subs
+    // substraction
     @R1
 	A=M
 	D=M
