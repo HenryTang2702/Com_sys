@@ -8,7 +8,7 @@ compare-to ArrMin04.cmp,
 output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2 RAM[20]%D2.6.2 RAM[21]%D2.6.2 RAM[22]%D2.6.2 RAM[23]%D2.6.2;
 
 set PC 0,
-set RAM[0]  1,  // Set R0
+set RAM[0]  0,  // Set R0
 set RAM[1]  20, // Set R1
 set RAM[2]  4,  // Set R2
 set RAM[20] 32766,  // Set Arr[0]
