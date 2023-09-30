@@ -20,9 +20,9 @@
 // - R0: True (-1) when the program finishes
 
 @R1 // the address of arr[0]
-    D=M-1 // substract 1 because the array starts from arr[0]
-    @R2 // the length
-    M=M+D // now R2 is the address of the last element
+D=M-1 // substract 1 because the array starts from arr[0]
+@R2 // the length
+M=M+D // now R2 is the address of the last element
 
 (OUTER_LOOP)
 (CHECK_TERMINATE)
