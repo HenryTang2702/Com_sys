@@ -93,19 +93,94 @@ class VMTranslator:
 
     def vm_neg():
         '''Generate Hack Assembly code for a VM neg operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        M=-M
+        @SP
+        M=M+1
+        """
 
     def vm_eq():
         '''Generate Hack Assembly code for a VM eq operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        D=M-D
+        @EQUAL
+        D;JEQ
+        @SP
+        A=M
+        M=0
+        @SP
+        M=M+1
+        @END
+        0;JMP
+        (EQUAL)
+        @SP
+        A=M
+        M=-1
+        @SP
+        M=M+1
+        (END)
+        """
 
     def vm_gt():
         '''Generate Hack Assembly code for a VM gt operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        D=M-D
+        @GREATER
+        D;JGT
+        @SP
+        A=M
+        M=0
+        @SP
+        M=M+1
+        @END
+        0;JMP
+        (GREATER)
+        @SP
+        A=M
+        M=-1
+        @SP
+        M=M+1
+        (END)
+        """
 
     def vm_lt():
         '''Generate Hack Assembly code for a VM lt operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        D=M-D
+        @LESS
+        D;JLT
+        @SP
+        A=M
+        M=0
+        @SP
+        M=M+1
+        @END
+        0;JMP
+        (LESS)
+        @SP
+        A=M
+        M=-1
+        @SP
+        M=M+1
+        (END)
+        """
 
     def vm_and():
         '''Generate Hack Assembly code for a VM and operation'''
@@ -121,7 +196,15 @@ class VMTranslator:
 
     def vm_or():
         '''Generate Hack Assembly code for a VM or operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        M=D|M
+        @SP
+        M=M+1"""
 
     def vm_not():
         '''Generate Hack Assembly code for a VM not operation'''
@@ -134,27 +217,142 @@ class VMTranslator:
 
     def vm_label(label):
         '''Generate Hack Assembly code for a VM label operation'''
-        return ""
+        return """
+        ({})
+        """.format(label)
+        
 
     def vm_goto(label):
         '''Generate Hack Assembly code for a VM goto operation'''
-        return ""
+        
+        return """
+        @{}
+        0;JMP
+        """.format(label)
+            
 
     def vm_if(label):
         '''Generate Hack Assembly code for a VM if-goto operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @{}
+        D;JNE
+        """.format(label)
 
     def vm_function(function_name, n_vars):
         '''Generate Hack Assembly code for a VM function operation'''
-        return ""
+        code = f"""
+        ({function_name})
+        """
+        for i in range(n_vars):
+            code += VMTranslator.vm_push("constant", 0)
+        return code
 
     def vm_call(function_name, n_args):
         '''Generate Hack Assembly code for a VM call operation'''
-        return ""
+        code = """
+        @retAddr
+        D=A
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+        @LCL
+        D=M
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+        @ARG
+        D=M
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+        @THIS
+        D=M
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+        @THAT
+        D=M
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+        @SP
+        D=M
+        @5
+        D=D-A
+        @{n_args}
+        D=D-A
+        @ARG
+        M=D
+        @SP
+        D=M
+        @LCL
+        M=D
+        @{function_name}
+        0;JMP
+        (retAddr)
+        """.format(function_name=function_name, n_args=n_args)
+        return code
 
     def vm_return():
         '''Generate Hack Assembly code for a VM return operation'''
-        return ""
+        code = """
+        @LCL
+        D=M
+        @5
+        M=D
+        @5
+        A=D-A
+        D=M
+        @6
+        M=D
+        @SP
+        AM=M-1
+        D=M
+        @ARG
+        A=M
+        M=D
+        @ARG
+        D=M+1
+        @SP
+        M=D
+        @5
+        AM=M-1
+        D=M
+        @THAT
+        M=D
+        @5
+        AM=M-1
+        D=M
+        @THIS
+        M=D
+        @5
+        AM=M-1
+        D=M
+        @ARG
+        M=D
+        @5
+        AM=M-1
+        D=M
+        @LCL
+        M=D
+        @6
+        A=M
+        0;JMP
+        """
+        return code
 
 # A quick-and-dirty parser when run as a standalone script.
 if __name__ == "__main__":
