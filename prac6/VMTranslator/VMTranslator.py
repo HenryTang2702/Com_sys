@@ -363,14 +363,14 @@ class VMTranslator:
         ({})
         """.format(label)
         
-
+        
     def vm_goto(label):
         '''Generate Hack Assembly code for a VM goto operation'''
-        
         return """
         @{}
         0;JMP
         """.format(label)
+        
             
 
     def vm_if(label):
@@ -382,6 +382,7 @@ class VMTranslator:
         @{}
         D;JNE
         """.format(label)
+
 
     def vm_function(function_name, n_vars):
         '''Generate Hack Assembly code for a VM function operation'''
