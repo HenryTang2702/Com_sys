@@ -39,11 +39,44 @@ class VMTranslator:
 
     def vm_pop(segment, offset):
         '''Generate Hack Assembly code for a VM pop operation'''
-        return ""
+        if segment in ["static", "pointer", "temp"]:
+            code = f"""
+            @SP
+            AM=M-1
+            D=M
+            @{segment.upper()}.{offset}
+            M=D
+            """
+        else:
+            code = f"""
+            @{offset}
+            D=A
+            @{segment.upper()}
+            D=D+M
+            @R5
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R5
+            A=M
+            M=D
+            """
+        return code
+        
 
     def vm_add():
         '''Generate Hack Assembly code for a VM add operation'''
-        return ""
+
+        return """@SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        M=D+M
+        @SP
+        M=M+1"""
+    
 
     def vm_sub():
         '''Generate Hack Assembly code for a VM sub operation'''
