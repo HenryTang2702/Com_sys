@@ -3,66 +3,208 @@ class VMTranslator:
     def vm_push(segment, offset):
         '''Generate Hack Assembly code for a VM push operation'''
         if segment == "constant":
-            code = f"""
-            @{offset}
+            return """
+            @{}
             D=A
             @SP
             A=M
             M=D
             @SP
             M=M+1
-            """
-        elif segment in ["static", "temp", "pointer"]:
-            code = f"""
-            @{segment.upper()}.{offset}
+            """.format(offset)
+        elif segment == "local":
+            return """
+            @{}
+            D=A
+            @LCL
+            A=M+D
             D=M
             @SP
             A=M
             M=D
             @SP
             M=M+1
-            """
+            """.format(offset)
+        elif segment == "argument":
+            return """
+            @{}
+            D=A
+            @ARG
+            A=M+D
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(offset)
+        elif segment == "this":
+            return """
+            @{}
+            D=A
+            @THIS
+            A=M+D
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(offset)
+        elif segment == "that":
+            return """
+            @{}
+            D=A
+            @THAT
+            A=M+D
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(offset)
+        elif segment == "temp":
+            return """
+            @{}
+            D=A
+            @5
+            A=A+D
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(offset)
+        elif segment == "pointer":
+            return """
+            @{}
+            D=A
+            @3
+            A=A+D
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(offset)
+        elif segment == "static":
+            return """
+            @{}.{}
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """.format(sys.argv[1][:-3], offset)
         else:
-            code = f"""
-            @{segment.upper()}
-            D=M
-            @{offset}
-            A=D+A
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """
-        return code
+            return ""
 
     def vm_pop(segment, offset):
         '''Generate Hack Assembly code for a VM pop operation'''
-        if segment in ["static", "pointer", "temp"]:
-            code = f"""
-            @SP
-            AM=M-1
-            D=M
-            @{segment.upper()}.{offset}
-            M=D
-            """
-        else:
-            code = f"""
-            @{offset}
+        if segment == "local":
+            return """
+            @{}
             D=A
-            @{segment.upper()}
-            D=D+M
-            @R5
+            @LCL
+            D=M+D
+            @R13
             M=D
             @SP
             AM=M-1
             D=M
-            @R5
+            @R13
             A=M
             M=D
-            """
-        return code
+            """.format(offset)
+        elif segment == "argument":
+            return """
+            @{}
+            D=A
+            @ARG
+            D=M+D
+            @R13
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R13
+            A=M
+            M=D
+            """.format(offset)
+        elif segment == "this":
+            return """
+            @{}
+            D=A
+            @THIS
+            D=M+D
+            @R13
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R13
+            A=M
+            M=D
+            """.format(offset)
+        elif segment == "that":
+            return """
+            @{}
+            D=A
+            @THAT
+            D=M+D
+            @R13
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R13
+            A=M
+            M=D
+            """.format(offset)
+        elif segment == "temp":
+            return """
+            @{}
+            D=A
+            @5
+            D=A+D
+            @R13
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R13
+            A=M
+            M=D
+            """.format(offset)
+        elif segment == "pointer":
+            return """
+            @{}
+            D=A
+            @3
+            D=A+D
+            @R13
+            M=D
+            @SP
+            AM=M-1
+            D=M
+            @R13
+            A=M
+            M=D
+            """.format(offset)
+        elif segment == "static":
+            return """
+            @SP
+            AM=M-1
+            D=M
+            @{}.{}
+            M=D
+            """.format(sys.argv[1][:-3], offset)
+        else:
+            return ""
         
 
     def vm_add():
