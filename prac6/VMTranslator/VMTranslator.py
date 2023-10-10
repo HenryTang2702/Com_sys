@@ -379,9 +379,9 @@ class VMTranslator:
         @SP
         AM=M-1
         D=M
-        @{}
+        @{label}
         D;JNE
-        """.format(label)
+        """.format(label=label)
 
 
     def vm_function(function_name, n_vars):
