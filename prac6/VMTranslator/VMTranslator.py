@@ -100,7 +100,15 @@ class VMTranslator:
 
     def vm_and():
         '''Generate Hack Assembly code for a VM and operation'''
-        return ""
+        return """
+        @SP
+        AM=M-1
+        D=M
+        @SP
+        AM=M-1
+        M=D&M
+        @SP
+        M=M+1"""
 
     def vm_or():
         '''Generate Hack Assembly code for a VM or operation'''
