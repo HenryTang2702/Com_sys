@@ -3,105 +3,39 @@ class VMTranslator:
     def vm_push(segment, offset):
         '''Generate Hack Assembly code for a VM push operation'''
         if segment == "constant":
-            return """
-            @{}
+            code = f"""
+            @{offset}
             D=A
             @SP
             A=M
             M=D
             @SP
             M=M+1
-            """.format(offset)
-        elif segment == "local":
-            return """
-            @{}
-            D=A
-            @LCL
-            A=M+D
+            """
+        elif segment in ["static", "temp", "pointer"]:
+            code = f"""
+            @{segment.upper()}.{offset}
             D=M
             @SP
             A=M
             M=D
             @SP
             M=M+1
-            """.format(offset)
-        elif segment == "argument":
-            return """
-            @{}
-            D=A
-            @ARG
-            A=M+D
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(offset)
-        elif segment == "this":
-            return """
-            @{}
-            D=A
-            @THIS
-            A=M+D
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(offset)
-        elif segment == "that":
-            return """
-            @{}
-            D=A
-            @THAT
-            A=M+D
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(offset)
-        elif segment == "temp":
-            return """
-            @{}
-            D=A
-            @5
-            A=A+D
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(offset)
-        elif segment == "pointer":
-            return """
-            @{}
-            D=A
-            @3
-            A=A+D
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(offset)
-        elif segment == "static":
-            return """
-            @{}.{}
-            D=M
-            @SP
-            A=M
-            M=D
-            @SP
-            M=M+1
-            """.format(sys.argv[1][:-3], offset)
+            """
         else:
-            return ""
+            code = f"""
+            @{segment.upper()}
+            D=M
+            @{offset}
+            A=D+A
+            D=M
+            @SP
+            A=M
+            M=D
+            @SP
+            M=M+1
+            """
+        return code
 
     def vm_pop(segment, offset):
         '''Generate Hack Assembly code for a VM pop operation'''
@@ -359,18 +293,11 @@ class VMTranslator:
 
     def vm_label(label):
         '''Generate Hack Assembly code for a VM label operation'''
-        return """
-        ({})
-        """.format(label)
-        
+        return f"({label})\n"
 
     def vm_goto(label):
         '''Generate Hack Assembly code for a VM goto operation'''
-        
-        return """
-        @{}
-        0;JMP
-        """.format(label)
+        return f"@{label}\n0;JMP\n"
             
 
     def vm_if(label):
