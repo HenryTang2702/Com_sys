@@ -2,7 +2,24 @@
 // x & y are static variables
 
 // Put your code here.
+// Calculates y = |x|
+// x & y are static variables
 
+// Put your code here.
+push static 0
+push constant 0
+lt
+if-goto NEGATIVE
+
+push static 0
+goto END
+
+label NEGATIVE
+push static 0
+neg
+
+label END
+pop static 1
 
 
 label END
