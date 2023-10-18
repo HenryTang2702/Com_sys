@@ -6,21 +6,25 @@
 // x & y are static variables
 
 // Put your code here.
-push static 0
-push constant 0
-lt
-if-goto NEGATIVE
+// Calculates y = |x|
+// x & y are static variables
 
+// Check if x is negative
+push static 0   // Push x onto the stack
+push constant 0 // Push 0 onto the stack
+lt             // Compare x to 0
+if-goto IS_NEGATIVE
+
+// If x is not negative, copy x to y
 push static 0
+pop static 1
 goto END
 
-label NEGATIVE
+// If x is negative, calculate the absolute value
+label IS_NEGATIVE
 push static 0
-neg
-
-label END
+neg             // Negate x to get its absolute value
 pop static 1
 
-
+// End of the program
 label END
-goto END
