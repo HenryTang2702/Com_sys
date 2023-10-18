@@ -17,7 +17,7 @@ label LOOP
   // Check if x is less than or equal to 0
   push argument 0
   push constant 0
-  le
+  lt
   if-goto END
 
   // Add y to a
