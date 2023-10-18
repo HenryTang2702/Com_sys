@@ -28,3 +28,4 @@ pop static 1
 
 // End of the program
 label END
+goto END
