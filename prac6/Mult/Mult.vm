@@ -6,26 +6,35 @@
 push constant 0
 pop local 0
 
+push static 0 
+pop argument 0
+
+push static 1
+pop argument 1
+
+
 label LOOP
-    push argument 0 
-    push constant 1
-    leq
-    if-goto END
+  // Check if y is less than or equal to 0
+  push static 1
+  push constant 0
+  leq
+  if-goto END
 
-    //Add x to a
-    push local 0
-    push static 0
-    add
-    pop local 0
+  // Add x to a
+  push local 0
+  push static 0
+  add
+  pop local 0
 
-    //Decrement y
-    push static 1
-    push constant 1
-    sub
-    pop static 0
+  // Decrement y
+  push static 1
+  push constant 1
+  sub
+  pop static 1
 
-goto LOOP
+  // Repeat the loop
+  goto LOOP
+
 
 label END
-pop local 0
 goto END
