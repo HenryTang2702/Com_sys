@@ -3,37 +3,13 @@
 // x & y are static variables
 
 // Put your code here.
-push constant 0
-pop local 0
+push local 1
 
-push static 0 
-pop argument 0
+add
 
-push static 1
-pop argument 1
+push static 0
 
-
-label LOOP
-  // Check if y is less than or equal to 0
-  push static 1
-  push constant 0
-  lt
-  if-goto END
-
-  // Add x to a
-  push local 0
-  push static 0
-  add
-  pop local 0
-
-  // Decrement y
-  push static 1
-  push constant 1
-  sub
-  pop static 1
-
-  // Repeat the loop
-  goto LOOP
+sub
 
 
 label END
