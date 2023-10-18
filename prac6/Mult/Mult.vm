@@ -1,41 +1,34 @@
-// Calculates a = x * y
+// Calculates a = x*y
 // a is a local variable
 // x & y are static variables
 
-// Initialize a to 0
+// Put your code here.
 push constant 0
 pop local 0
 
-// Initialize loop variables
-push static 0 // x
+push static 0 
 pop argument 0
-push static 1 // y
+
+push static 1
 pop argument 1
 
-// Start the loop
+
 label LOOP
-  // Check if x is equal to 0 (loop end condition)
-  push argument 0
-  push constant 0
-  eq
-  if-goto END
+    push argument 0 
+    push constant 1
+    eq
+    if-goto END
+    push local 0
+    push argument 1
+    add
+    pop local 0
 
-  // Add y to a
-  push local 0
-  push argument 1
-  add
-  pop local 0
+push argument 0
+push constant 1
+sub
+pop argument 0
 
-  // Decrement x by 1
-  push argument 0
-  push constant 1
-  sub
-  pop argument 0
+goto LOOP
 
-  // Repeat the loop
-  goto LOOP
-
-// End of the program
 label END
-pop local 0
 goto END
