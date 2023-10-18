@@ -14,10 +14,10 @@ pop argument 1
 
 // Start the loop
 label LOOP
-  // Check if x is less than or equal to 0
+  // Check if x is equal to 0 (loop end condition)
   push argument 0
   push constant 0
-  lt
+  eq
   if-goto END
 
   // Add y to a
