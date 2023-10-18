@@ -12,21 +12,20 @@ pop argument 0
 push static 1
 pop argument 1
 
-
 label LOOP
-    push argument 0 
-    push constant 1
-    eq
-    if-goto END
-    push local 0
-    push argument 1
-    add
-    pop local 0
-
+push argument 1
+push constant 0
+eq
+if-goto END
+add
 push argument 0
+push local 0
+add
+pop local 0
+push argument 1
 push constant 1
 sub
-pop argument 0
+pop argument 1
 
 goto LOOP
 
