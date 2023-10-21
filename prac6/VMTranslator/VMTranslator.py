@@ -245,83 +245,86 @@ class VMTranslator:
 
     def vm_eq():
         '''Generate Hack Assembly code for a VM eq operation'''
-        return """
+        label_id = str(uuid.uuid4())  # Generate a unique label identifier
+        return f"""
         @SP
         AM=M-1
         D=M
         @SP
         AM=M-1
         D=M-D
-        @EQUAL
+        @EQUAL_TRUE{label_id}
         D;JEQ
         @SP
         A=M
         M=0
         @SP
         M=M+1
-        @END
+        @EQUAL_END{label_id}
         0;JMP
-        (EQUAL)
+        (EQUAL_TRUE{label_id})
         @SP
         A=M
         M=-1
         @SP
         M=M+1
-        (END)
+        (EQUAL_END{label_id})
         """
 
     def vm_gt():
         '''Generate Hack Assembly code for a VM gt operation'''
-        return """
+        label_id = str(uuid.uuid4())  # Generate a unique label identifier
+        return f"""
         @SP
         AM=M-1
         D=M
         @SP
         AM=M-1
         D=M-D
-        @GREATER
+        @GREATER_TRUE{label_id}
         D;JGT
         @SP
         A=M
         M=0
         @SP
         M=M+1
-        @END
+        @GREATER_END{label_id}
         0;JMP
-        (GREATER)
+        (GREATER_TRUE{label_id})
         @SP
         A=M
         M=-1
         @SP
         M=M+1
-        (END)
+        (GREATER_END{label_id})
         """
 
     def vm_lt():
         '''Generate Hack Assembly code for a VM lt operation'''
-        return """
+        label_id = str(uuid.uuid4())  # Generate a unique label identifier
+        return f"""
         @SP
         AM=M-1
         D=M
         @SP
         AM=M-1
         D=M-D
-        @LESS
+        @LESS_TRUE{label_id}
         D;JLT
         @SP
         A=M
         M=0
         @SP
         M=M+1
-        @END
+        @LESS_END{label_id}
         0;JMP
-        (LESS)
+        (LESS_TRUE{label_id})
         @SP
         A=M
         M=-1
         @SP
         M=M+1
-        (END)
+        (LESS_END{label_id})
         """
 
     def vm_and():

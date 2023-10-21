@@ -1,0 +1,4 @@
+push static 1
+function Fibonacci 1
+pop static 1
+return
