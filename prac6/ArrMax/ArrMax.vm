@@ -4,57 +4,57 @@
     // Put your code here.
 
     function ArrMax.arrMax 2
-    // Initialize pointer 1 to point to the array a
-    push argument 0
-    pop pointer 1
+        // Initialize pointer 1 to point to the array a
+        push argument 0
+        pop pointer 1
 
-    // Load the first element of the array into temp 0 as the initial max
-    push that 0
-    pop temp 0
+        // Load the first element of the array into temp 0 as the initial max
+        push that 0
+        pop temp 0
 
-// Label for the loop
-label LOOP
-    // Check if we've reached the end of the array (b == 1)
-    push argument 1
-    push constant 1
-    eq
-    if-goto END
+    // Label for the loop
+    label LOOP
+        // Check if we've reached the end of the array (b == 1)
+        push argument 1
+        push constant 1
+        eq
+        if-goto END
 
-    // Decrement b to move to the next element
-    push argument 1
-    push constant 1
-    sub
-    pop argument 1
+        // Decrement b to move to the next element
+        push argument 1
+        push constant 1
+        sub
+        pop argument 1
 
-    // Move the pointer to the next element of the array (a++)
-    push argument 0
-    push constant 1
-    add
-    pop argument 0
-    push argument 0
-    pop pointer 1
+        // Move the pointer to the next element of the array (a++)
+        push argument 0
+        push constant 1
+        add
+        pop argument 0
+        push argument 0
+        pop pointer 1
 
-    // Compare the current element with the current max
-    push that 0
-    push temp 0
-    gt
+        // Compare the current element with the current max
+        push that 0
+        push temp 0
+        gt
 
-    // If the current element is greater, jump to UPDATE-MAX
-    if-goto UPDATE-MAX
+        // If the current element is greater, jump to UPDATE-MAX
+        if-goto UPDATE-MAX
 
-    // If not, continue the loop
-    goto LOOP
+        // If not, continue the loop
+        goto LOOP
 
-// Label to update the maximum element
-label UPDATE-MAX
-    // Update the max to the current element
-    push that 0
-    pop temp 0
-    goto LOOP
+    // Label to update the maximum element
+    label UPDATE-MAX
+        // Update the max to the current element
+        push that 0
+        pop temp 0
+        goto LOOP
 
-// Label for the end of the loop
-label END
-    // Push the final maximum value onto the stack
-    push temp 0
-    // Return the maximum value
-    return
+    // Label for the end of the loop
+    label END
+        // Push the final maximum value onto the stack
+        push temp 0
+        // Return the maximum value
+        return
