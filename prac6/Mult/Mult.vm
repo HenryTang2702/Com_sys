@@ -3,14 +3,32 @@
 // x & y are static variables
 
 // Put your code here.
-push local 1
+push constant 0
+pop local 0
 
+push static 0 
+pop argument 0
+
+push static 1
+pop argument 1
+
+
+label LOOP
+push argument 0 
+push constant 1
+lt
+if-goto END
+push local 0
+push argument 1
 add
+pop local 0
 
-push static 0
-
+push argument 0
+push constant 1
 sub
+pop argument 0
 
+goto LOOP
 
 label END
 goto END
