@@ -1,6 +1,6 @@
 push local 1
 push argument 1
 
-call add 2
+call add 3
 
 return

@@ -3,32 +3,44 @@
 // x & y are static variables
 
 // Put your code here.
+// Initialize local variable a to 0
 push constant 0
 pop local 0
 
-push static 0 
+// Load the value of static variable x into argument 0
+push static 0
 pop argument 0
 
+// Load the value of static variable y into argument 1
 push static 1
 pop argument 1
 
-
+// Label for the loop
 label LOOP
-push argument 0 
-push constant 1
-lt
-if-goto END
-push local 0
-push argument 1
-add
-pop local 0
+    // Check if the value in argument 0 is less than 1
+    push argument 0
+    push constant 1
+    lt
 
-push argument 0
-push constant 1
-sub
-pop argument 0
+    // If x is less than 1, jump to the END
+    if-goto END
 
-goto LOOP
+    // Update the local variable a by adding the value of argument 1 (y)
+    push local 0
+    push argument 1
+    add
+    pop local 0
 
+    // Decrement argument 0 (x) by 1
+    push argument 0
+    push constant 1
+    sub
+    pop argument 0
+
+    // Go back to the LOOP label to continue the iteration
+    goto LOOP
+
+// Label to end the calculation
 label END
-goto END
+    // Jump to the END label to finish the program
+    goto END

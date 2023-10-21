@@ -4,30 +4,43 @@
 // Put your code here.
 
 function Fib.fib 0
+    // Check if n <= 1 to determine if it's a base case
     push argument 0
     push constant 2
     lt
 
+    // If n <= 1, jump to the base case label
     if-goto BASE_CASE
 
+    // If n > 1, jump to the recursive case label
     goto RECURSIVE_CASE
+
+// Label for the base case
 label BASE_CASE
-        push argument 0
-        return
+    // Simply return n when n <= 1
+    push argument 0
+    return
 
+// Label for the recursive case
 label RECURSIVE_CASE
-        push argument 0
-        push constant 1
+    // Calculate n - 1
+    push argument 0
+    push constant 1
+    sub
 
-        sub
+    // Call the Fib.fib function recursively for n - 1
+    call Fib.fib 1
 
-        call Fib.fib 1
-        push argument 0
-        push constant 2
+    // Calculate n - 2
+    push argument 0
+    push constant 2
+    sub
 
-        sub
+    // Call the Fib.fib function recursively for n - 2
+    call Fib.fib 1
 
-        call Fib.fib 1
-        
-        add
-        return
+    // Add the results of the two recursive calls to get the nth Fibonacci number
+    add
+
+    // Return the result
+    return
