@@ -3,71 +3,82 @@
 // x & y are static variables
 
 // Put your code here.
-push static 0
-pop temp 0
+// Initialize local variable a to 0
+// This code calculates the product of two numbers, a = x * y.
+// It assumes that 'x' and 'y' are provided as static variables.
 
-// neg=0
+// Initialize temporary variables
+push static 0    // Load 'x' from static variable 0
+pop temp 0       // Store 'x' in temp 0
+
+// Initialize neg flag to 0
 push constant 0
 pop temp 1
 
-// a=0
+// Initialize 'a' to 0
 push constant 0
-pop local 0
+pop local 0     // 'a' is a local variable
 
-// if x<0
+// Check if 'x' is negative
 push temp 0
 push constant 0
 lt
 not
 if-goto Loop
 
+// 'x' is negative; set the neg flag to 1
 push constant 1
 pop temp 1
 
-//x=|x|
+// Take the absolute value of 'x'
 push temp 0
 neg
 pop temp 0
 
-
-
+// Start of the main loop
 label Loop
 
-// x>0
+// Check if 'x' is greater than 0
 push temp 0
 push constant 0
 gt
 if-goto InLoop
 
+// 'x' is not greater than 0; exit the loop
 goto EndLoop
+
+// Inside the loop
 label InLoop
 
-// x -= 1
+// Decrement 'x' by 1
 push temp 0
 push constant 1
 sub
 pop temp 0
 
-push static 1
-push local 0
+// Calculate 'a = a + y'
+push static 1   // Load 'y' from static variable 1
+push local 0    // Load 'a' from local variable 0
 add
-pop local 0
+pop local 0     // Store the result in 'a'
 
+// Go back to the start of the loop
 goto Loop
+
+// End of the main loop
 label EndLoop
 
-
-
+// Check if the neg flag is set
 push temp 1
 push constant 0
 eq
 if-goto END
 
+// 'x' was originally negative; negate 'a'
 push local 0
 neg
 pop local 0
 
-
-
+// End of the program
 label END
 goto END
